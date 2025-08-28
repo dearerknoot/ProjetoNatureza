@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .menu-item {
+      background: #fff;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 25px 15px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .menu-item:hover {
+      border-color: #1d5c34;
+      transform: translateY(-5px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+    }
+
+    .menu-item i {
+      font-size: 36px;
+      color: #1d5c34;
+      margin-bottom: 10px;
+    }
+
+    .menu-item span {
+      display: block;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-container">
+    <div class="menu-item" id="problema">
+      <i class="bi bi-globe2"></i>
+      <span>Problema dos Microplásticos</span>
+    </div>
+    <div class="menu-item" id="simulacao">
+      <i class="bi bi-flask"></i>
+      <span>Simulação da Bactéria</span>
+    </div>
+    <div class="menu-item" id="grupo">
+      <i class="bi bi-people"></i>
+      <span>Apresentação do Grupo</span>
+    </div>
+    <div class="menu-item" id="projeto">
+      <i class="bi bi-lightbulb"></i>
+      <span>Nosso Projeto</span>
+    </div>
+    <div class="menu-item" id="sobre">
+      <i class="bi bi-info-circle"></i>
+      <span>Sobre</span>
+    </div>
+  </div>
+
+</body>
+<script>
+  const problema = document.getElementById('problema');
+  const simulacao = document.getElementById('simulacao');
+  const grupo = document.getElementById('grupo');
+  const projeto = document.getElementById('projeto');
+  const sobre = document.getElementById('sobre');
+
+ problema.onclick = ()=>{
+    window.location.href = 'problema.html';
+ }
+ simulacao.onclick = ()=>{
+    window.location.href = 'simulacao.html';
+ }
+</script>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    canvas { display: block; width: 100%; height: 100%; }
+    .dot { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:6px; vertical-align:-2px; }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-sky-200 to-white text-slate-800">
+
+  <!-- Cabeçalho -->
+  <header class="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-slate-200 p-3 flex flex-col md:flex-row items-center justify-between">
+    <h1 class="text-lg font-bold text-sky-800">Simulação — <i>Ideonella sakaiensis</i></h1>
+    <div class="flex flex-wrap gap-2 mt-2 md:mt-0">
+      <div class="flex items-center gap-1 text-sm">
+        <label>Bactérias</label>
+        <input id="bCount" type="range" min="5" max="200" value="40" class="w-24">
+        <span id="bVal">40</span>
+      </div>
+      <div class="flex items-center gap-1 text-sm">
+        <label>Plásticos</label>
+        <input id="pCount" type="range" min="20" max="400" value="150" class="w-24">
+        <span id="pVal">150</span>
+      </div>
+      <div class="flex items-center gap-1 text-sm">
+        <label>Eficiência</label>
+        <input id="eff" type="range" min="0" max="100" value="60" class="w-24">
+        <span id="effVal">0.60×</span>
+      </div>
+      <div class="flex items-center gap-1 text-sm">
+        <label>Salinidade</label>
+        <input id="sal" type="range" min="0" max="100" value="30" class="w-24">
+        <span id="salVal">0.30</span>
+      </div>
+      <button id="toggle" class="px-3 py-1 rounded-lg bg-sky-700 text-white text-sm">Pausar</button>
+      <button id="reset" class="px-3 py-1 rounded-lg bg-slate-200 text-sm">Reset</button>
+    </div>
+  </header>
+
+  <!-- Área da simulação -->
+  <div class="relative max-w-6xl mx-auto my-3 aspect-video rounded-xl overflow-hidden shadow-lg border border-slate-300">
+    <canvas id="sim"></canvas>
+
+    <!-- Legenda -->
+    <div class="absolute bottom-2 right-2 bg-white/90 p-2 rounded-lg text-xs shadow-md space-y-1">
+      <div><span class="dot" style="background:#3a86ff"></span>Bactéria</div>
+      <div><span class="dot" style="background:#ff6b6b"></span>PET</div>
+      <div><span class="dot" style="background:#ffd166"></span>PE</div>
+      <div><span class="dot" style="background:#06d6a0"></span>PP</div>
+    </div>
+
+    <!-- Estatísticas -->
+    <div id="stats" class="absolute bottom-2 left-2 bg-white/90 p-2 rounded-lg text-xs shadow-md"></div>
+  </div>
+
+  <footer class="text-center text-xs text-slate-600 pb-4">
+    Simulação visual ilustrativa. Maior salinidade reduz mobilidade/eficiência. Eficiência enzimática acelera degradação.
+  </footer>
+
+<script>
+(() => {
+  const canvas = document.getElementById("sim");
+  const ctx = canvas.getContext("2d");
+  let W, H;
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    W = canvas.width / devicePixelRatio;
+    H = canvas.height / devicePixelRatio;
+    ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  }
+  window.addEventListener("resize", resize);
+
+  const elB = document.getElementById("bCount");
+  const elP = document.getElementById("pCount");
+  const elEff = document.getElementById("eff");
+  const elSal = document.getElementById("sal");
+  const vB = document.getElementById("bVal");
+  const vP = document.getElementById("pVal");
+  const vEff = document.getElementById("effVal");
+  const vSal = document.getElementById("salVal");
+  const statsEl = document.getElementById("stats");
+  const btnToggle = document.getElementById("toggle");
+  const btnReset = document.getElementById("reset");
+
+  let running = true;
+  btnToggle.onclick = () => {
+    running = !running;
+    btnToggle.textContent = running ? "Pausar" : "Retomar";
+  };
+  btnReset.onclick = () => init();
+
+  function syncUI() {
+    vB.textContent = elB.value;
+    vP.textContent = elP.value;
+    vEff.textContent = (elEff.value/100).toFixed(2) + "×";
+    vSal.textContent = (elSal.value/100).toFixed(2);
+  }
+
+  const COLORS = { B: "#3a86ff", PET: "#ff6b6b", PE: "#ffd166", PP: "#06d6a0" };
+  const TYPES = ["PET", "PE", "PP"];
+  let plastics = [];
+  let bacteria = [];
+  let degraded = 0;
+
+  function initPlastics(n) {
+    plastics = [];
+    for (let i = 0; i < n; i++) {
+      const type = TYPES[Math.floor(Math.random() * TYPES.length)];
+      plastics.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 4 + 3,
+        type,
+        dx: (Math.random()-0.5)*0.2,
+        dy: (Math.random()-0.5)*0.2,
+        hard: type==="PET"?1: type==="PE"?1.3:1.1
+      });
+    }
+  }
+
+  function initBacteria(n) {
+    bacteria = [];
+    for (let i = 0; i < n; i++) {
+      bacteria.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random()-0.5)*1,
+        vy: (Math.random()-0.5)*1,
+      });
+    }
+  }
+
+  function init() {
+    resize();
+    syncUI();
+    initPlastics(+elP.value);
+    initBacteria(+elB.value);
+    degraded = 0;
+  }
+
+  function step(dt) {
+    const eff = elEff.value/100;
+    const sal = elSal.value/100;
+    const degradeK = 0.015*eff*(1-sal*0.4);
+    const currentStrength = 0.3*(1-sal);
+
+    // movimento de plásticos (correntes)
+    for (const p of plastics) {
+      p.x += p.dx + Math.sin(Date.now()/1000 + p.y*0.01)*currentStrength*0.2;
+      p.y += p.dy + Math.cos(Date.now()/1000 + p.x*0.01)*currentStrength*0.2;
+      if(p.x<0) p.x=W; if(p.x>W) p.x=0;
+      if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+    }
+
+    // bactérias
+    for (const b of bacteria) {
+      // fluxo oceânico leve
+      b.vx += Math.sin(b.y*0.01+Date.now()/1500)*currentStrength*0.02;
+      b.vy += Math.cos(b.x*0.01+Date.now()/1500)*currentStrength*0.02;
+
+      // busca plástico mais próximo
+      let target=null, best=Infinity;
+      for(const p of plastics){
+        const dx=p.x-b.x, dy=p.y-b.y, d2=dx*dx+dy*dy;
+        if(d2<best){best=d2; target=p;}
+      }
+      if(target){
+        const dx=target.x-b.x, dy=target.y-b.y;
+        const d=Math.hypot(dx,dy)||1;
+        b.vx += dx/d*0.03;
+        b.vy += dy/d*0.03;
+        if(d<target.r+3){
+          target.r -= degradeK*dt/target.hard;
+          if(target.r<=1){
+            plastics.splice(plastics.indexOf(target),1);
+            degraded++;
+          }
+        }
+      }
+
+      // mover
+      b.x+=b.vx; b.y+=b.vy;
+      b.vx*=0.96; b.vy*=0.96;
+      if(b.x<0) b.x=W; if(b.x>W) b.x=0;
+      if(b.y<0) b.y=H; if(b.y>H) b.y=0;
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0,0,W,H);
+
+    // plásticos
+    for(const p of plastics){
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=COLORS[p.type];
+      ctx.globalAlpha=0.85;
+      ctx.fill();
+      ctx.globalAlpha=1;
+    }
+
+    // bactérias
+    for(const b of bacteria){
+      ctx.beginPath();
+      ctx.arc(b.x,b.y,3,0,Math.PI*2);
+      ctx.fillStyle=COLORS.B;
+      ctx.fill();
+    }
+
+    // estatísticas
+    let cPET=plastics.filter(p=>p.type==="PET").length;
+    let cPE=plastics.filter(p=>p.type==="PE").length;
+    let cPP=plastics.filter(p=>p.type==="PP").length;
+    statsEl.innerHTML=`Restantes — PET: ${cPET} • PE: ${cPE} • PP: ${cPP}<br>Degradados: ${degraded}`;
+  }
+
+  let last=performance.now();
+  function loop(t){
+    const dt=(t-last)/16; last=t;
+    if(running) step(dt);
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  init();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

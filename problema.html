@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Document</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <style>
+    :root{
+      --leaf:#0f6b3a;
+      --accent:#38b2ac;
+      --danger:#d9534f;
+      --card:#ffffff;
+    }
+    body{background: linear-gradient(180deg,#e6fbf7 0%, #f8fff9 60%); color:#0b2b22; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+    .hero{
+      background: radial-gradient(800px 300px at 10% 10%, rgba(56,178,172,0.08), transparent 20%),
+                  linear-gradient(180deg, rgba(15,107,58,0.06), rgba(15,107,58,0.02));
+      border-radius: .8rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(13,43,34,0.06);
+    }
+    .alert-banner{
+      background: linear-gradient(90deg, rgba(217,83,79,0.12), rgba(240,173,78,0.06));
+      border-left: 6px solid var(--danger);
+      padding: 1rem;
+      border-radius: .5rem;
+    }
+    .stat-bubble{
+      background: white;
+      border-radius: .6rem;
+      padding: 1rem;
+      box-shadow: 0 6px 18px rgba(2,16,12,0.04);
+    }
+    .info-card{
+      border-radius: .6rem;
+      background: white;
+      padding: 1.25rem;
+      box-shadow: 0 6px 18px rgba(2,16,12,0.04);
+      height:100%;
+    }
+    .cta{
+      background: linear-gradient(90deg,var(--leaf), var(--accent));
+      color: white;
+      padding: .8rem 1rem;
+      border-radius: .5rem;
+      text-decoration: none;
+      font-weight:600;
+    }
+    .sources a{word-break:break-all}
+    footer{font-size:.85rem; color:#275644; padding-top:1.25rem}
+    @media (max-width:576px){
+      .hero{padding:1rem}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-4">
+    <!-- Hero -->
+    <div class="hero mb-4">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="mb-2" style="color:var(--leaf)">Microplásticos: um alerta urgente</h1>
+          <p class="mb-3 lead">Partículas plásticas imperceptíveis (<5 mm) estão por toda parte — nos oceanos, rios, solos, no ar e até em alimentos e água potável. O problema é persistente e se transforma em risco ambiental e potencial risco à saúde humana.</p>
+
+          <div class="alert-banner mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <strong>Atenção:</strong> microplásticos acumulam-se em ecossistemas e na cadeia alimentar. A ciência ainda investiga os efeitos completos — mas há sinais preocupantes.  
+              </div>
+              <div class="ms-3">
+                
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-2">
+            <div class="col-sm-4">
+              <div class="stat-bubble text-center">
+                <div class="fs-5 fw-bold">Milhões</div>
+                <div class="text-muted">de toneladas de plástico nos oceanos (estimativas)</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="stat-bubble text-center">
+                <div class="fs-5 fw-bold">Água & Alimentos</div>
+                <div class="text-muted">microplásticos detectados em água engarrafada, peixe e sal</div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="stat-bubble text-center">
+                <div class="fs-5 fw-bold">Persistência</div>
+                <div class="text-muted">partículas persistem por décadas a séculos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 d-none d-md-block text-center">
+          <!-- visual circular with particles -->
+          <svg width="220" height="220" viewBox="0 0 220 220" aria-hidden>
+            <defs>
+              <radialGradient id="g1" cx="30%" cy="20%">
+                <stop offset="0%" stop-color="#e6fbf7"/>
+                <stop offset="80%" stop-color="#c2f1ec"/>
+              </radialGradient>
+            </defs>
+            <circle cx="110" cy="110" r="100" fill="url(#g1)" stroke="#b6e7df" stroke-width="2"></circle>
+
+            <!-- stylized microplastic particles -->
+            <g fill="#ff6b6b" opacity="0.92">
+              <circle cx="150" cy="60" r="4"></circle>
+              <rect x="68" y="42" width="6" height="6" rx="1"></rect>
+              <ellipse cx="120" cy="160" rx="5" ry="3"></ellipse>
+              <circle cx="80" cy="120" r="3.5" fill="#ffd166"></circle>
+              <circle cx="142" cy="142" r="3" fill="#06d6a0"></circle>
+            </g>
+            <text x="110" y="116" text-anchor="middle" font-size="12" fill="#0f6b3a" font-weight="700">Microplásticos</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards explicativos -->
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <div class="info-card">
+          <h5 class="fw-bold">O que são?</h5>
+          <p>Microplásticos são fragmentos plásticos menores que 5 mm. Podem originar-se da degradação de lixo plástico maior ou serem produzidos em tamanho pequeno (microesferas, fibras sintéticas).</p>
+          <hr>
+          <h6 class="fw-semibold">Fontes comuns</h6>
+          <ul class="mb-0">
+            <li>Fibras de roupas sintéticas (lavagem)</li>
+            <li>Partes de embalagens e frascos degradados</li>
+            <li>Aditivos e microesferas de cosméticos (em alguns produtos)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="info-card">
+          <h5 class="fw-bold">Por que é um problema?</h5>
+          <p>Além de serem onipresentes e persistentes, microplásticos podem carregar substâncias químicas tóxicas e serem ingeridos por organismos marinhos, entrando na cadeia alimentar. Estudos mostram efeitos negativos em animais e indicam possíveis riscos à saúde humana, ainda em investigação.</p>
+          <hr>
+          <div class="d-flex gap-2">
+            <div class="flex-fill">
+              <strong>Impacto ecológico</strong>
+              <div class="text-muted small">danos à fauna marinha, ingestão por peixes e aves</div>
+            </div>
+            <div class="flex-fill">
+              <strong>Impacto humano</strong>
+              <div class="text-muted small">partículas encontradas em alimentos e água; riscos ainda sendo estudados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Texto de alerta e ações -->
+    <div class="row g-3 mb-4">
+      <div class="col-lg-8">
+        <div class="info-card">
+          <h5 class="fw-bold text-danger">Alerta: o que precisa ser feito</h5>
+          <p>Tratar microplásticos exige ação em várias frentes: reduzir produção e consumo de plásticos descartáveis; melhorar coleta, reciclagem e tratamento de águas residuais; e investir em soluções científicas, como biotecnologia voltada à degradação.</p>
+          <ul>
+            <li><strong>Políticas públicas:</strong> leis para redução de plástico e incentivo à reciclagem.</li>
+            <li><strong>Indústria:</strong> embalagens reutilizáveis/recicláveis e responsabilidade estendida.</li>
+            <li><strong>Pesquisa:</strong> monitoramento, avaliação de riscos e tecnologias de remoção/biodegradação.</li>
+            <li><strong>Indivíduos:</strong> reduzir uso descartável, preferir materiais reutilizáveis e descartar corretamente.</li>
+          </ul>
+          <div class="mt-3">
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="info-card">
+          <h6 class="fw-bold">Dados rápidos</h6>
+          <ol class="mb-2">
+            <li>Estima-se que milhões de toneladas de plástico já circulem nos oceanos — projeções apontam centenas de milhões nas próximas décadas.</li>
+            <li>Microplásticos já foram detectados em água engarrafada, sal marinho e peixes consumidos por humanos.</li>
+            <li>A evidência sobre efeitos diretos na saúde humana está crescendo, mas ainda há lacunas que exigem pesquisa.</li>
+          </ol>
+          <hr>
+          <div class="text-center">
+           
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fontes -->
+    <section id="fontes" class="mb-4">
+      <h5 class="fw-bold">Fontes e leituras recomendadas</h5>
+      <div class="card p-3 sources">
+        <ul class="mb-0">
+          <li><a href="https://www.unep.org/resources/report/microplastics" target="_blank" rel="noopener">UNEP — Microplastics (relatórios e recursos)</a> — panorama e recomendações de políticas.</li>
+          <li><a href="https://www.who.int/news/item/20-08-2019-microplastics-in-drinking-water" target="_blank" rel="noopener">WHO — Microplastics in drinking-water (2019)</a> — revisão sobre ocorrência e potenciais impactos.</li>
+          <li><a href="https://oceanservice.noaa.gov/facts/microplastics.html" target="_blank" rel="noopener">NOAA — What are microplastics?</a> — impacto em ecossistemas marinhos.</li>
+          <li><a href="https://ourworldindata.org/how-much-plastic-waste-ends-up-in-the-ocean" target="_blank" rel="noopener">Our World in Data — How much plastic waste ends up in the ocean?</a> — estimativas e tendências.</li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7731724/" target="_blank" rel="noopener">Revisão (PMC) — Human health and ocean pollution (revista):</a> estudo que discute quantidades e riscos.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <div class="text-muted small">Observação: este resumo tem fins educativos. As estimativas e as conclusões científicas sobre a magnitude dos riscos à saúde humana ainda evoluem — consulte as fontes originais para aprofundar. </div>
+    </footer>
+  </div>
+
+  <!-- Bootstrap JS (apenas utilidades) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // animação simples de "progress" simbólica
+    const pctEl = document.getElementById('percentProgress');
+    let t = 0;
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+.mainHeader{
+    display: flex;
+}
+.title{
+    position: absolute;
+    margin-left: 100px;
+}
