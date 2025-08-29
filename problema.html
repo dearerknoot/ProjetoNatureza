@@ -58,10 +58,20 @@
     @media (max-width:576px){
       .hero{padding:1rem}
     }
+    #back{
+      width: 50px;
+      height: 50px;
+      position: fixed;
+      margin-top: px;
+      margin-left: 10px;
+    }
   </style>
 </head>
 <body>
 
+  <header>
+    <img src="imagens/voltar.png" id="back">
+  </header>
   <div class="container py-4">
     <!-- Hero -->
     <div class="hero mb-4">
@@ -223,6 +233,10 @@
     // animação simples de "progress" simbólica
     const pctEl = document.getElementById('percentProgress');
     let t = 0;
+    const backBtn = document.getElementById('back');
+    backBtn.addEventListener('click',()=>{
+      window.location.href = 'index.html';
+    });
   </script>
 </body>
 </html>
