@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Document</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Ícones -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    :root{
+      --brand:#166534;      /* verde principal */
+      --accent:#22c55e;     /* verde claro */
+      --ink:#0f172a;        /* texto escuro */
+      --soft:#f0fdf4;       /* bg suave */
+    }
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--ink); background:linear-gradient(180deg,#effcf6 0%, #ffffff 60%)}
+    .hero{
+      background: radial-gradient(700px 260px at 8% 5%, rgba(34,197,94,.12), transparent 30%),
+                  radial-gradient(600px 240px at 95% 20%, rgba(34,197,94,.08), transparent 40%),
+                  linear-gradient(180deg, #ffffff, #f7fff9);
+      border-radius: 16px;
+      box-shadow: 0 12px 36px rgba(2,48,31,.08);
+    }
+    .badge-soft{background:#dcfce7; color:#065f46}
+    .card-soft{background:#ffffff; border:1px solid #e8f3ea; box-shadow:0 8px 22px rgba(2,48,31,.06)}
+    .timeline::before{content:""; position:absolute; left:18px; top:0; bottom:0; width:2px; background:#e2e8f0}
+    .timeline .item{position:relative; padding-left:46px}
+    .timeline .item::before{content:""; position:absolute; left:10px; top:.35rem; width:18px; height:18px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 4px #d1fae5}
+    .pill{border:1px solid #def7ec; background:#f0fdf4; border-radius:999px; padding:.25rem .6rem; font-size:.85rem}
+    .btn-cta{background:linear-gradient(90deg,var(--brand),var(--accent)); color:#fff; border:none}
+    .btn-cta:hover{opacity:.95; color:#fff}
+    .icon-xl{font-size:2rem; color:var(--brand)}
+    a.source{word-break:break-word}
+    #back{
+        width: 70px;
+        height: 70px;
+        
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+
+    <!-- HERO -->
+    <header>
+        <img src="imagens/voltar.png" id="back" onclick="voltar()">
+    </header>
+    <section class="hero p-4 p-md-5 mb-4">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <h1 class="fw-bold lh-tight mb-3" style="color:var(--brand)">Nós somos pesquisadores de biotecnologia e estamos em busca de soluções reais para os microplásticos.</h1>
+          <p class="lead">Unimos duas frentes promissoras: <strong><em>Ideonella sakaiensis</em></strong>, bactéria que degrada PET via PETase e MHETase, e a descoberta das <strong>larvas de <em>Galleria mellonella</em></strong> capazes de atacar polietileno. A partir desses achados, propomos um caminho de <u>engenharia genética</u> para ampliar o alcance da biodegradação.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="pill"><i class="bi bi-flask"></i> PETase / MHETase</span>
+            <span class="pill"><i class="bi bi-shield-check"></i> Biossegurança</span>
+            <span class="pill"><i class="bi bi-phone"></i> Site interativo</span>
+          </div>
+          <div class="mt-3 d-flex gap-2">
+            <a class="btn btn-outline-success btn-lg" href="#fontes">Fontes</a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card card-soft p-3">
+            <div class="d-flex align-items-center gap-3">
+              <i class="bi bi-exclamation-triangle-fill text-warning icon-xl"></i>
+              <div>
+                <h5 class="mb-1">Microplásticos: um alerta</h5>
+                <p class="mb-0">Partículas < 5 mm já foram detectadas em oceanos, rios, solos, ar, água potável e alimentos. Persistem por décadas e podem carregar aditivos e poluentes.</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 small text-muted">Conteúdo educativo — números variam por estudo; consulte as fontes ao final.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABS: Ideonella / Larvas / Impactos -->
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="tab-ideonella" data-bs-toggle="pill" data-bs-target="#pane-ideonella" type="button" role="tab">Ideonella sakaiensis</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-larva" data-bs-toggle="pill" data-bs-target="#pane-larva" type="button" role="tab">Larvas de G. mellonella</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-impacto" data-bs-toggle="pill" data-bs-target="#pane-impacto" type="button" role="tab">Impactos & Contexto</button>
+      </li>
+    </ul>
+
+    <div class="tab-content mb-4">
+      <!-- Ideonella -->
+      <div class="tab-pane fade show active" id="pane-ideonella" role="tabpanel" aria-labelledby="tab-ideonella">
+        <div class="row g-3">
+          <div class="col-md-7">
+            <div class="card card-soft p-3 h-100">
+              <h5 class="fw-bold">Como a <em>Ideonella sakaiensis</em> degrada PET</h5>
+              <p><em>I. sakaiensis</em> é gram-negativa, aeróbica e não esporulada. Ela utiliza o PET como fonte de carbono, secretando as enzimas <strong>PETase</strong> (quebra o polímero em MHET/TPA) e <strong>MHETase</strong> (converte MHET em TPA + EG). Esse é um processo de <u>biocatálise enzimática</u>.</p>
+              <div class="row g-2">
+                <div class="col-sm-6">
+                  <div class="p-3 rounded-3 border h-100">
+                    <div class="fw-semibold"><i class="bi bi-diagram-3"></i> Vantagens</div>
+                    <ul class="mb-0 small">
+                      <li>Específica para PET</li>
+                      <li>Funciona em condições moderadas</li>
+                      <li>Possibilidade de engenharia enzimática</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="p-3 rounded-3 border h-100">
+                    <div class="fw-semibold"><i class="bi bi-speedometer2"></i> Desafios</div>
+                    <ul class="mb-0 small">
+                      <li>Eficiência ainda limitada em escala</li>
+                      <li>Condições ambientais variáveis</li>
+                      <li>Integração com reciclagem</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3 small text-muted">Baseado em estudos publicados entre 2016–2021 que investigam PETase/MHETase e a biocatálise do PET.</div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="card card-soft p-3 h-100">
+              <h6 class="fw-bold mb-2">Linha do tempo (resumo)</h6>
+              <div class="position-relative timeline ps-2">
+                <div class="item mb-3">
+                  <div class="fw-semibold">Descoberta em amostras de PET (Japão)</div>
+                  <div class="small text-muted">Isolamento de <em>I. sakaiensis</em> em ambiente com resíduos de PET.</div>
+                </div>
+                <div class="item mb-3">
+                  <div class="fw-semibold">Caracterização da PETase/MHETase</div>
+                  <div class="small text-muted">Demonstração da rota enzimática para TPA + EG.</div>
+                </div>
+                <div class="item">
+                  <div class="fw-semibold">Engenharia de variantes</div>
+                  <div class="small text-muted">Mutagênese racional para melhorar estabilidade/atividade.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /Ideonella -->
+
+      <!-- Larvas -->
+      <div class="tab-pane fade" id="pane-larva" role="tabpanel" aria-labelledby="tab-larva">
+        <div class="row g-3">
+          <div class="col-lg-6">
+            <div class="card card-soft p-3 h-100">
+              <h5 class="fw-bold">Lagartas “comedores de plástico”</h5>
+              <p>Pesquisas com larvas da mariposa <em>Galleria mellonella</em> mostraram degradação rápida de <strong>polietileno (PE)</strong>, possivelmente associada a enzimas/microrganismos do seu sistema digestivo. Em testes, sacolas plásticas foram perfuradas em menos de uma hora.</p>
+              <p class="small text-muted mb-0">A aplicação industrial ainda requer entender melhor o mecanismo químico, isolar enzimas e garantir segurança/eficácia.</p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-soft p-3 h-100">
+              <h6 class="fw-bold">Comparando abordagens</h6>
+              <div class="row g-2">
+                <div class="col-sm-6">
+                  <div class="border rounded-3 p-3 h-100">
+                    <div class="fw-semibold"><i class="bi bi-bacteria"></i> <em>I. sakaiensis</em></div>
+                    <ul class="small mb-0">
+                      <li>Foco: PET</li>
+                      <li>Rota enzimática definida</li>
+                      <li>Alta especificidade</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="border rounded-3 p-3 h-100">
+                    <div class="fw-semibold"><i class="bi bi-bug"></i> <em>G. mellonella</em></div>
+                    <ul class="small mb-0">
+                      <li>Foco: PE</li>
+                      <li>Potencial enzimático/microbiano</li>
+                      <li>Precisamos isolar as enzimas-chave</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-2 small text-muted">Conclusão: há complementaridade entre PET (Ideonella) e PE (larvas).</div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /Larvas -->
+
+      <!-- Impactos -->
+      <div class="tab-pane fade" id="pane-impacto" role="tabpanel" aria-labelledby="tab-impacto">
+        <div class="row g-3">
+          <div class="col-md-7">
+            <div class="card card-soft p-3 h-100">
+              <h5 class="fw-bold">Por que isso importa?</h5>
+              <p>Microplásticos e nanoplásticos acumulam-se nos ecossistemas, são ingeridos por organismos, carregam aditivos e podem atuar como vetores de contaminantes. A redução na fonte e o desenvolvimento de soluções biotecnológicas são complementares e urgentes.</p>
+              <div class="alert alert-warning mb-0"><i class="bi bi-exclamation-triangle"></i> Mesmo com soluções avançadas, <strong>reduzir o uso de plástico descartável</strong> continua essencial.</div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="card card-soft p-3 h-100">
+              <h6 class="fw-bold">Perguntas frequentes</h6>
+              <div class="accordion" id="faq">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="q1"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#a1">Microplástico é perigoso para humanos?</button></h2>
+                  <div id="a1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+                    <div class="accordion-body small">Efeitos diretos ainda são pesquisados. Já há evidências de presença em água/alimentos e efeitos em organismos modelo. Princípio da precaução recomenda mitigação.</div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="q2"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#a2">Por que usar biotecnologia?</button></h2>
+                  <div id="a2" class="accordion-collapse collapse" data-bs-parent="#faq">
+                    <div class="accordion-body small">Enzimas atuam em condições brandas e podem ser otimizadas/produzidas em escala, complementando reciclagem mecânica/química.</div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="q3"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#a3">Riscos de liberar microrganismos?</button></h2>
+                  <div id="a3" class="accordion-collapse collapse" data-bs-parent="#faq">
+                    <div class="accordion-body small">Qualquer aplicação em ambiente exige <strong>biossegurança</strong>, contenção biológica (kill-switches), avaliações ecológicas e autorização regulatória.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /Impactos -->
+    </div>
+
+    <!-- NOSSA PROPOSTA (engenharia genética + controle interativo de ambiente) -->
+    <section class="mb-4">
+      <div class="card card-soft p-3">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+          <h4 class="mb-0"><i class="bi bi-gear-wide-connected me-1"></i> Nossa proposta de engenharia genética</h4>
+          <div class="d-flex align-items-center gap-2">
+            <label class="small text-muted">Ambiente:</label>
+            <input type="range" id="env" min="0" max="2" value="1" class="form-range" style="width:160px">
+            <span id="envLabel" class="pill">Estuário (médio sal)</span>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-lg-4">
+            <div class="p-3 border rounded-3 h-100">
+              <div class="fw-semibold mb-1">1) Adaptação a ambientes aquáticos</div>
+              <ul class="small mb-0" id="envText">
+                <li>Estabilidade das enzimas em salinidade moderada</li>
+                <li>Regulação osmótica e biofilme controlado</li>
+                <li>Contenção biológica (ex.: dependência nutricional)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="p-3 border rounded-3 h-100">
+              <div class="fw-semibold mb-1">2) Expansão enzimática</div>
+              <ul class="small mb-0">
+                <li>Engenharia de PETase/MHETase para maior atividade</li>
+                <li><strong>Novas enzimas</strong>: alvos para PE/PP (ex.: oxidorredutases, cutinases variantes)</li>
+                <li>Co-expressão com chaperonas para estabilidade</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="p-3 border rounded-3 h-100">
+              <div class="fw-semibold mb-1">3) Pipeline experimental</div>
+              <ol class="small mb-0">
+                <li>Triagem in vitro de variantes enzimáticas</li>
+                <li>Construção de linhagens seguras (kill-switch)</li>
+                <li>Reatores/biomódulos fechados &amp; avaliação LCA</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 small text-muted">Nota: proposta didática para fins escolares; implementação real requer validação experimental, avaliações de risco e conformidade regulatória.</div>
+      </div>
+    </section>
+
+    <!-- Fontes -->
+    <section id="fontes" class="mb-4">
+      <h5 class="fw-bold mb-2">Fontes e leituras recomendadas</h5>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="card card-soft p-3 h-100">
+            <h6 class="fw-semibold"><i class="bi bi-journal-text me-1"></i> Ideonella & PETase/MHETase</h6>
+            <ul class="small mb-0">
+              <li><a class="source" href="https://www.science.org/doi/10.1126/science.aad6359" target="_blank" rel="noopener">Yoshida et al., 2016 — A bacterium that degrades and assimilates PET (Science)</a></li>
+              <li><a class="source" href="https://www.nature.com/articles/s41598-018-27788-9" target="_blank" rel="noopener">Austin et al., 2018 — Engineering PETase (Nature)</a></li>
+              <li><a class="source" href="https://pubmed.ncbi.nlm.nih.gov/31235656/" target="_blank" rel="noopener">Weinberger et al., 2019 — Characterization of MHETase</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-soft p-3 h-100">
+            <h6 class="fw-semibold"><i class="bi bi-journal-text me-1"></i> Larvas & Polietileno</h6>
+            <ul class="small mb-0">
+              <li><a class="source" href="https://www.nature.com/articles/s41598-017-00604-9" target="_blank" rel="noopener">Bombelli et al., 2017 — Polyethylene bio-degradation by wax worm (Scientific Reports)</a></li>
+              <li><a class="source" href="https://www.cam.ac.uk/research/news/caterpillar-that-eats-plastic-could-help-solve-waste-problem" target="_blank" rel="noopener">Universidade de Cambridge — notícia do estudo</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3 small text-muted">Para contextualização de microplásticos: ver OMS/WHO (microplásticos em água potável), NOAA (definições/impactos) e relatórios do UNEP.</div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="py-3 text-center text-muted small">
+      © Projeto escola SESI Gravataí — Biotecnologia & Meio Ambiente • Layout responsivo (Bootstrap). Desenvolvido por: Thiago Carlesso.
+      <br> Ajuste cores/textos/logos conforme sua escola.
+    </footer>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Controle "Ambiente" (0=fresco/água doce, 1=estuário, 2=marinho)
+    const env = document.getElementById('env');
+    const envLabel = document.getElementById('envLabel');
+    const envText = document.getElementById('envText');
+
+    function setEnv(v){
+      const presets = [
+        {
+          label:'Água doce (baixa salinidade)',
+          items:[
+            'Ajuste de pH e temperatura para PETase/MHETase',
+            'Expressão moderada de bombas de efluxo',
+            'Biofilme controlado em superfície de PET'
+          ]
+        },
+        {
+          label:'Estuário (médio sal)',
+          items:[
+            'Estabilidade enzimática com sais (mutantes sal-tolerantes)',
+            'Regulação osmótica (compatíveis como trealose/betaina)',
+            'Containment: dependência de nutriente ausente no ambiente'
+          ]
+        },
+        {
+          label:'Marinho (alta salinidade)',
+          items:[
+            'PETase/MHETase tolerantes a sal e temperatura variáveis',
+            'Chaperonas e reforço de dobramento proteico',
+            'Controle genético tipo kill-switch por luz/temperatura'
+          ]
+        }
+      ];
+      const p = presets[v];
+      envLabel.textContent = p.label;
+      envText.innerHTML = p.items.map(x=>`<li>${x}</li>`).join('');
+    }
+    setEnv(1);
+    env.addEventListener('input', e => setEnv(+e.target.value));
+    function voltar(){
+        window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
