@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Document</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="animation.css">
+
   <style>
     #header{
       margin-top: 100px;
@@ -12,10 +14,11 @@
     #backBtn{
       width: 70px;
       height: 70px;
+      animation: slideDown 3s;
       
     }
-    canvas { display: block; width: 100%; height: 100%; }
-    .dot { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:6px; vertical-align:-2px; }
+    canvas { display: block; width: 100%; height: 100%;animation: slideDown 3s; }
+    .dot { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:6px; vertical-align:-2px; animation: slideDown 3s;}
   </style>
 </head>
 <body class="bg-gradient-to-b from-sky-200 to-white text-slate-800">
